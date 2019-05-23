@@ -38,7 +38,7 @@ public class MemberController extends HttpServlet {
 			actionForward.setCheck(true);
 			actionForward.setPath("../WEB-INF/views/member/memberCheck.jsp");
 		}else if(command.equals("/memberJoin")) {
-			
+			actionForward=memberService.insert(request, response);
 		}else if(command.equals("/memberLogin")) {
 			
 		}else if(command.equals("/memberLogout")) {

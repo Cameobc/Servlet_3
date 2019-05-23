@@ -43,8 +43,7 @@ public class MemberDAO {
 	}
 	
 	//memberJoin(memberDTO) / return int 
-	public int memberJoin(MemberDTO memberDTO) throws Exception{
-		Connection con = DBConnector.getConnect();
+	public int memberJoin(MemberDTO memberDTO, Connection con) throws Exception{
 		String sql = "Insert into member values(?, ?, ?, ?, ?, ?)";
 		PreparedStatement st = con.prepareStatement(sql);
 		st.setString(1, memberDTO.getId());
@@ -54,7 +53,7 @@ public class MemberDAO {
 		st.setString(5, memberDTO.getEmail());
 		st.setInt(6, memberDTO.getAge());
 		int result = st.executeUpdate();
-		DBConnector.disConnect(con, st);
+		st.close();
 		return result;
 	}
 	//memberLogIn(String id) / return memberDTO

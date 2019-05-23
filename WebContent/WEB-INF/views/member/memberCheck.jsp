@@ -13,19 +13,44 @@
 <h1>약관 동의</h1>
   <form>
     <div class="checkbox">
-      <label><input type="checkbox" value="" name="">모두동의</label>
+      <label><input type="checkbox" id="checkAll">모두동의</label>
     </div>
     <div class="checkbox">
-      <label><input type="checkbox" value="">A</label>
+      <label><input type="checkbox" class="check">A</label>
     </div>
     <div class="checkbox">
-      <label><input type="checkbox" value="">B</label>
+      <label><input type="checkbox" class="check">B</label>
     </div>
      <div class="checkbox">
-      <label><input type="checkbox" value="" >C</label>
+      <label><input type="checkbox" class="check" >C</label>
     </div>
-    <a href=""><input type="button" value="Next" class="btn btn-primary"></a>
+    <input type="button" value="Next" class="btn btn-primary">
   </form>
 </div>
+<script type="text/javascript">
+//*********************************************모두동의하는부분
+	$('#checkAll').click(function() {
+		var c = $('#checkAll').prop('checked');
+		$('.check').prop('checked', c);
+	});
+//*********************************************박스 하나라도 체크 안하면 안 넘어가게
+	$('.check').click(function() {
+		var c = true;
+		$('.check').each(function() {
+			if(!$(this).prop('checked')){
+				c=false;
+			}
+		});
+		$('#checkAll').prop('checked', c);
+	});
+//******************************************전체 체크해야지 a태그 돌아가도록
+	$('.btn').click(function() {
+		if(!$('#checkAll').prop('checked')){
+			alert("약관에 모두 동의해주세요.");
+		}else{
+			location.href="./memberJoin";
+		}
+	});
+</script>
 </body>
 </html>
