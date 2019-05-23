@@ -32,16 +32,15 @@ public class UploadDAO {
 	//delete
 	
 	//insert
-	public int insert(UploadDTO uploadDTO) throws Exception{
+	public int insert(UploadDTO uploadDTO, Connection con) throws Exception{
 		int result=0;
-		Connection con = DBConnector.getConnect();
 		String sql = "insert into upload values(num_seq.nextval, ?, ?, ?)";
 		PreparedStatement st = con.prepareStatement(sql);
 		st.setInt(1, uploadDTO.getNo());
 		st.setString(2, uploadDTO.getoName());
 		st.setString(3, uploadDTO.getfName());
 		result = st.executeUpdate();
-		DBConnector.disConnect(con, st);
+		st.close();
 		return result;
 	}
 	

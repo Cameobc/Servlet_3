@@ -101,8 +101,7 @@ public class NoticeDAO {
 	
 	
 	//insert() r:int  매개 : noticeDTO
-	public int insert(NoticeDTO noticeDTO) throws Exception {
-		Connection con = DBConnector.getConnect();
+	public int insert(NoticeDTO noticeDTO, Connection con) throws Exception {
 		String sql = "insert into notice (no, title, contents, writer) values(?, ?, ?, ?)";
 		PreparedStatement st = con.prepareStatement(sql);
 		st.setInt(1, noticeDTO.getNo());
@@ -110,7 +109,7 @@ public class NoticeDAO {
 		st.setString(3, noticeDTO.getContents());
 		st.setString(4, noticeDTO.getWriter());
 		int result = st.executeUpdate();
-		DBConnector.disConnect(con, st);
+		st.close();
 		return result;
 	}
 	
