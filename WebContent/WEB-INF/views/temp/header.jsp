@@ -20,13 +20,13 @@
     </ul>
     <ul class="nav navbar-nav navbar-right">
     <c:choose>
-    	<c:when test="">
-         <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
- 		 <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+    	<c:when test="${sessionScope.memberDTO ==null }">
+ 		 <li><a href="<%=application.getContextPath() %>/member/memberLogin"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+         <li><a href="<%=application.getContextPath() %>/member/memberCheck"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
     	</c:when>
 		<c:otherwise>
-   		 <li><a href="#"><span class="glyphicon glyphicon-user"></span> Logout</a></li>
-     	 <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> MyPage</a></li>
+   		 <li><a href="<%=application.getContextPath() %>/member/memberLogout"><span class="glyphicon glyphicon-user"></span> Logout</a></li>
+     	 <li><a href="<%=application.getContextPath() %>/member/memberPage"><span class="glyphicon glyphicon-log-in"></span> MyPage</a></li>
 		</c:otherwise>
     </c:choose>
     </ul>

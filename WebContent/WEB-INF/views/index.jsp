@@ -9,7 +9,7 @@
 </head>
 <body>
 <%@include file="./temp/header.jsp" %> <!-- 서버 내부에서 -->
-<h1>Index Page</h1>
+<h1>Welcome ${sessionScope.memberDTO.id }</h1>
 <img alt="cat" src="./images/cat1.jpg"><!-- 서버 외부에서 -->
 </body>
 </html>

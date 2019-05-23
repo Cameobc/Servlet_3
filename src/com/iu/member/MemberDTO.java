@@ -1,5 +1,7 @@
 package com.iu.member;
 
+import com.iu.mupload.MuploadDTO;
+
 public class MemberDTO {
 	
 	public MemberDTO() {
@@ -12,6 +14,16 @@ public class MemberDTO {
 	private String phone;
 	private String email;
 	private int age;
+	private MuploadDTO muploadDTO;
+	
+	
+	
+	public MuploadDTO getMuploadDTO() {
+		return muploadDTO;
+	}
+	public void setMuploadDTO(MuploadDTO muploadDTO) {
+		this.muploadDTO = muploadDTO;
+	}
 	public String getId() {
 		return id;
 	}

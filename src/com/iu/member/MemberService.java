@@ -4,8 +4,11 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import com.iu.action.Action;
 import com.iu.action.ActionForward;
@@ -24,6 +27,48 @@ public class MemberService implements Action {
 		memberDAO = new MemberDAO();
 		muploadDAO = new MuploadDAO();
 	}
+	
+	
+	public ActionForward login(HttpServletRequest request, HttpServletResponse response) {
+		ActionForward actionForward = new ActionForward();
+		MemberDTO memberDTO = new MemberDTO();
+		memberDTO.setId(request.getParameter("id"));
+		memberDTO.setPw(request.getParameter("pw"));
+		HttpSession session = request.getSession();
+		String remember = request.getParameter("remember"); // remember check->on값이 넘어옴
+		String path="../WEB-INF/views/member/memberLogin.jsp";
+		boolean check=true;
+		try {
+			memberDTO = memberDAO.memberLogIn(memberDTO);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}//login method
+		if(memberDTO!=null) {
+			check= false;
+			path="../index.do";
+			session.setAttribute("memberDTO", memberDTO);
+		}
+		if(remember!=null) {
+			Cookie cookie = new Cookie("c", memberDTO.getId());
+			response.addCookie(cookie);
+		}else {
+			Cookie cookie = new Cookie("c", "");
+			response.addCookie(cookie);
+		}
+		actionForward.setCheck(check);
+		actionForward.setPath(path);
+		return actionForward;
+	}
+	
+	public ActionForward logout(HttpServletRequest request, HttpServletResponse response) {
+		ActionForward actionForward = new ActionForward();
+		HttpSession session = request.getSession();
+		session.invalidate();
+		actionForward.setCheck(false);
+		actionForward.setPath("../index.do");
+		return actionForward;
+	}
 
 	@Override
 	public ActionForward list(HttpServletRequest request, HttpServletResponse response) {
@@ -34,6 +79,23 @@ public class MemberService implements Action {
 	@Override
 	public ActionForward select(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward actionForward = new ActionForward();
+		HttpSession session = request.getSession();
+		String id = session.getId();
+		String path="../WEB-INF/views/member/memberPage.jsp";
+		boolean check=true;
+		MemberDTO memberDTO = null;
+		try {
+			memberDTO=memberDAO.memberSelectOne(id);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(memberDTO!=null) {
+			session.setAttribute("session", memberDTO);
+			
+		}
+		actionForward.setCheck(check);
+		actionForward.setPath(path);
 		return actionForward;
 	}
 
@@ -43,6 +105,7 @@ public class MemberService implements Action {
 		String method = request.getMethod();
 		String path="../WEB-INF/views/member/memberJoin.jsp";
 		boolean check= true;
+		
 		if(method.equals("POST")) {
 			MemberDTO memberDTO = new MemberDTO();
 			String saveDirectory = request.getServletContext().getRealPath("upload");

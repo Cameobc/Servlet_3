@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import com.iu.mupload.MuploadDTO;
 import com.iu.util.DBConnector;
 
 public class MemberDAO {
@@ -25,7 +26,7 @@ public class MemberDAO {
 	public MemberDTO memberSelectOne(String id) throws Exception {
 		MemberDTO memberDTO = null;
 		Connection con = DBConnector.getConnect();
-		String sql = "select * from member where id=?";
+		String sql = "select * from member join mupload using(id) where id =?";
 		PreparedStatement st = con.prepareStatement(sql);
 		st.setString(1, id);
 		ResultSet rs = st.executeQuery();
@@ -37,6 +38,12 @@ public class MemberDAO {
 			memberDTO.setPhone(rs.getString("phone"));
 			memberDTO.setEmail(rs.getString("email"));
 			memberDTO.setAge(rs.getInt("age"));
+			MuploadDTO muploadDTO = new MuploadDTO();
+			muploadDTO.setId(rs.getString("id"));
+			muploadDTO.setPnum(rs.getInt("pnum"));
+			muploadDTO.setOname(rs.getString("oname"));
+			muploadDTO.setFname(rs.getString("fname"));
+			memberDTO.setMuploadDTO(muploadDTO);
 		}
 		DBConnector.disConnect(con, st, rs);
 		return memberDTO;

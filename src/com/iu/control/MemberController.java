@@ -40,11 +40,11 @@ public class MemberController extends HttpServlet {
 		}else if(command.equals("/memberJoin")) {
 			actionForward=memberService.insert(request, response);
 		}else if(command.equals("/memberLogin")) {
-			
+			actionForward=memberService.login(request, response);
 		}else if(command.equals("/memberLogout")) {
-			
+			actionForward = memberService.logout(request, response);
 		}else if(command.equals("/memberPage")) {
-			
+			actionForward = memberService.select(request, response);
 		}
 		
 		if(actionForward.isCheck()) {
