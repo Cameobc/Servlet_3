@@ -11,13 +11,17 @@ import com.iu.action.ActionForward;
 import com.iu.page.SearchMakePage;
 import com.iu.page.SearchPager;
 import com.iu.page.SearchRow;
+import com.iu.upload.UploadDAO;
+import com.iu.upload.UploadDTO;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 public class NoticeService implements Action {
 	private NoticeDAO noticeDAO;
+	private UploadDAO uploadDAO;
 	public NoticeService() {
 		noticeDAO = new NoticeDAO();
+		uploadDAO = new UploadDAO();
 	}
 	@Override
 	public ActionForward list(HttpServletRequest request, HttpServletResponse response) {
@@ -67,9 +71,11 @@ public class NoticeService implements Action {
 		//글이 있으면 출력
 		//글이 없으면 삭제되었거나 없는 글입니다.<-alert 띄우고 List로 돌아가기
 		NoticeDTO noticeDTO = null;
+		UploadDTO uploadDTO =null;
 		try {
 			int num = Integer.parseInt(request.getParameter("no"));
 			noticeDTO = noticeDAO.seletOne(num);
+			uploadDTO = uploadDAO.selectOne(num);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -77,6 +83,7 @@ public class NoticeService implements Action {
 		String path="";
 		if(noticeDTO!=null) {
 			request.setAttribute("select", noticeDTO);
+			request.setAttribute("upload", uploadDTO);
 			path="../WEB-INF/views/notice/noticeSelect.jsp";
 		}else {
 			request.setAttribute("message", "삭제되었거나 없는 글입니다.");
@@ -97,8 +104,9 @@ public class NoticeService implements Action {
 		if(method.equals("POST")) {
 			NoticeDTO noticeDTO = new NoticeDTO();
 			//1.request를 하나로 합치기
+			//파일을저장할디스크경로C
 			String saveDirectory =request.getServletContext().getRealPath("upload"); // application
-			//System.out.println(saveDirectory);
+			System.out.println(saveDirectory);
 			int maxPostSize = 1024*1024*10; //10MB//byte단위
 			String encoding ="utf-8";
 			MultipartRequest multi = null;
@@ -111,16 +119,22 @@ public class NoticeService implements Action {
 			//파일저장이 된다.
 			
 			//hdd(server)에 저장된 이름
+			UploadDTO uploadDTO = new UploadDTO();
 			String fileName =multi.getFilesystemName("f1"); // 파일의 파라미터 이름
 			String oName = multi.getOriginalFileName("f1"); // 파일의 파라미터 이름
-			System.out.println("fileName : "+fileName);
-			System.out.println("oName : "+oName);
 			noticeDTO.setTitle(multi.getParameter("title"));
 			noticeDTO.setContents(multi.getParameter("contents"));
 			noticeDTO.setWriter(multi.getParameter("writer"));
+			uploadDTO.setfName(fileName);
+			uploadDTO.setoName(oName);
 			int result =0;
 			try {
+				int num = noticeDAO.getNum();
+				noticeDTO.setNo(num);
 				result = noticeDAO.insert(noticeDTO);
+				
+				uploadDTO.setNo(num);
+				result=uploadDAO.insert(uploadDTO);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

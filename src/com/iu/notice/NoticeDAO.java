@@ -86,15 +86,29 @@ public class NoticeDAO {
 		DBConnector.disConnect(con, st, rs);
 		return noticeDTO;
 	}
+	//sequence
+	public int getNum() throws Exception {
+		int result =0;
+		Connection con = DBConnector.getConnect();
+		String sql ="select notice_seq.nextval from dual";
+		PreparedStatement st = con.prepareStatement(sql);
+		ResultSet rs= st.executeQuery();
+		rs.next();
+		result = rs.getInt(1);
+		DBConnector.disConnect(con, st, rs);
+		return result;
+	}
+	
 	
 	//insert() r:int  매개 : noticeDTO
 	public int insert(NoticeDTO noticeDTO) throws Exception {
 		Connection con = DBConnector.getConnect();
-		String sql = "insert into notice (no, title, contents, writer) values(notice_seq.nextval, ?, ?, ?)";
+		String sql = "insert into notice (no, title, contents, writer) values(?, ?, ?, ?)";
 		PreparedStatement st = con.prepareStatement(sql);
-		st.setString(1, noticeDTO.getTitle());
-		st.setString(2, noticeDTO.getContents());
-		st.setString(3, noticeDTO.getWriter());
+		st.setInt(1, noticeDTO.getNo());
+		st.setString(2, noticeDTO.getTitle());
+		st.setString(3, noticeDTO.getContents());
+		st.setString(4, noticeDTO.getWriter());
 		int result = st.executeUpdate();
 		DBConnector.disConnect(con, st);
 		return result;

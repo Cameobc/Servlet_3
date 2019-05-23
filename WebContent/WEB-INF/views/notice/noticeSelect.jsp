@@ -23,7 +23,7 @@
 		<td colspan="5">${select.contents}</td>
 		</tr>
 	</table>
-
+<h1>Upload : <a href="../upload/${upload.fName }">${upload.oName}</a></h1>
 </div> 
 <a href="./noticeUpdate?no=${select.no}">Go Update</a>
 <a href="./noticeDelete?no=${select.no}">Go Delete</a>
