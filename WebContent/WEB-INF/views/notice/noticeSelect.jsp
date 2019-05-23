@@ -23,8 +23,7 @@
 		<td colspan="5">${select.contents}</td>
 		</tr>
 	</table>
-	<H1>Param : ${param.no le 1} </H1>
-	<h1>Title : ${select.title ne '옥탑방' }</h1>
+
 </div> 
 <a href="./noticeUpdate?no=${select.no}">Go Update</a>
 <a href="./noticeDelete?no=${select.no}">Go Delete</a>

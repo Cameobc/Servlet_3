@@ -190,8 +190,23 @@ public class NoticeService implements Action {
 	@Override
 	public ActionForward delete(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward actionForward = new ActionForward();
-		String no = request.getParameter("no");
-		System.out.println(no);
+		int num = Integer.parseInt(request.getParameter("no"));
+		System.out.println("Num : "+num);
+		int result=0;
+		boolean check = true;
+		String path="./noticeSelect?no="+num;
+		try {
+			result =noticeDAO.delete(num);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(result>1) {
+			check= false;
+			path="./noticeList";
+		}
+		actionForward.setCheck(check);
+		actionForward.setPath(path);
 		return actionForward;
 	}
 	

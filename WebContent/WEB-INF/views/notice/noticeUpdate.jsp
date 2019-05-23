@@ -12,7 +12,7 @@
 <c:import url="../temp/header.jsp"></c:import>
 <div class="container">
 	<h1>Notice Update</h1>
-		<form action="./noticeUpdate" method="post" enctype="multipart/form-data">
+		<form action="./noticeUpdate?no=${select.no}" method="post" enctype="multipart/form-data">
 		<div class="form-group">
 		      <input type="hidden" class="form-control" id="no" value="${select.no}" name="no">
 		    </div>
