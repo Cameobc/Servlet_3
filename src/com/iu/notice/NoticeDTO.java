@@ -1,5 +1,7 @@
 package com.iu.notice;
 
+import com.iu.upload.UploadDTO;
+
 public class NoticeDTO {
 
 	private int no;
@@ -8,6 +10,14 @@ public class NoticeDTO {
 	private String writer;
 	private String reg_date;
 	private int hit;
+	private UploadDTO uploadDTO;
+	
+	public UploadDTO getUploadDTO() {
+		return uploadDTO;
+	}
+	public void setUploadDTO(UploadDTO uploadDTO) {
+		this.uploadDTO = uploadDTO;
+	}
 	public int getNo() {
 		return no;
 	}

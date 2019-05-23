@@ -69,16 +69,14 @@ public class NoticeService implements Action {
 		return actionForward;
 	}
 	@Override
-	public ActionForward select(HttpServletRequest request, HttpServletResponse response) {
+	public ActionForward select(HttpServletRequest request, HttpServletResponse response) {  //조회를 해오는 것이라 transaction에서 제외된다. db를 수정삭제안해서
 		ActionForward actionForward = new ActionForward();
 		//글이 있으면 출력
 		//글이 없으면 삭제되었거나 없는 글입니다.<-alert 띄우고 List로 돌아가기
 		NoticeDTO noticeDTO = null;
-		UploadDTO uploadDTO =null;
 		try {
 			int num = Integer.parseInt(request.getParameter("no"));
 			noticeDTO = noticeDAO.seletOne(num);
-			uploadDTO = uploadDAO.selectOne(num);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -86,7 +84,6 @@ public class NoticeService implements Action {
 		String path="";
 		if(noticeDTO!=null) {
 			request.setAttribute("select", noticeDTO);
-			request.setAttribute("upload", uploadDTO);
 			path="../WEB-INF/views/notice/noticeSelect.jsp";
 		}else {
 			request.setAttribute("message", "삭제되었거나 없는 글입니다.");
