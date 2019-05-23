@@ -9,11 +9,19 @@
     <url-pattern>/notice/*</url-pattern>
   </servlet-mapping>
   <servlet>
-  	<servlet-name>home</servlet-name>
-  	<servlet-class>com.iu.control.HomeController</servlet-class>
+    <servlet-name>home</servlet-name>
+    <servlet-class>com.iu.control.HomeController</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>home</servlet-name>
-  	<url-pattern>/index.do</url-pattern>
+    <servlet-name>home</servlet-name>
+    <url-pattern>/index.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>member</servlet-name>
+    <servlet-class>com.iu.control.MemberController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>member</servlet-name>
+    <url-pattern>/member/*</url-pattern>
   </servlet-mapping>
 </web-app>
