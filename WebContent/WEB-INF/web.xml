@@ -24,4 +24,12 @@
     <servlet-name>member</servlet-name>
     <url-pattern>/member/*</url-pattern>
   </servlet-mapping>
+  <servlet>
+  	<servlet-name>qna</servlet-name>
+  	<servlet-class>com.iu.control.QnaController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>qna</servlet-name>
+  	<url-pattern>/qna/*</url-pattern>
+  </servlet-mapping>
 </web-app>

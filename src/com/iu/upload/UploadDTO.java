@@ -5,6 +5,7 @@ public class UploadDTO {
 	private int no;
 	private String oName;
 	private String fName;
+	
 	public int getPnum() {
 		return pnum;
 	}

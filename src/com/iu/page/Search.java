@@ -3,6 +3,7 @@ package com.iu.page;
 public class Search {
 	private String kind;
 	private String search;
+	
 	public String getKind() {
 		return kind;
 	}
@@ -17,6 +18,8 @@ public class Search {
 			this.kind="title";
 		}
 	}
+	
+	
 	public String getSearch() {
 		return search;
 	}
@@ -27,7 +30,4 @@ public class Search {
 			this.search = search;
 		}
 	}
-	
-	
-
 }

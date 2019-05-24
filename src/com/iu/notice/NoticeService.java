@@ -26,6 +26,7 @@ public class NoticeService implements Action {
 		noticeDAO = new NoticeDAO();
 		uploadDAO = new UploadDAO();
 	}
+	
 	@Override
 	public ActionForward list(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward actionForward = new ActionForward();
@@ -33,11 +34,12 @@ public class NoticeService implements Action {
 		try {
 		curPage = Integer.parseInt(request.getParameter("curPage"));
 		}catch (Exception e) {
-		
-		}
+		}		
 		String kind = request.getParameter("kind");
 		String search = request.getParameter("search");
+		
 		SearchMakePage s = new SearchMakePage(curPage, kind, search);
+		
 		//1.Row
 		SearchRow searchRow = s.makeRow();
 		ArrayList<NoticeDTO> ar = new ArrayList<NoticeDTO>();

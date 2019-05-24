@@ -6,7 +6,7 @@ public class SearchMakePage {
 	private Search search;
 	
 	
-	public SearchMakePage(int curPage,String kind, String search) {
+	public SearchMakePage(int curPage, String kind, String search) {
 		this(curPage, 10, kind, search);
 	}
 	
