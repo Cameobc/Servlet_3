@@ -5,10 +5,10 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="<%=application.getContextPath()%>/index.do">Home</a>
+      <a class="navbar-brand" href="${pageContext.request.contextPath }/index.do">Home</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="<%=application.getContextPath()%>/notice/noticeList">Notice</a></li>
+      <li class="active"><a href="${pageContext.request.contextPath }/notice/noticeList">Notice</a></li>
       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="#">Page 1-1</a></li>
@@ -21,12 +21,12 @@
     <ul class="nav navbar-nav navbar-right">
     <c:choose>
     	<c:when test="${sessionScope.memberDTO ==null }">
- 		 <li><a href="<%=application.getContextPath() %>/member/memberLogin"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-         <li><a href="<%=application.getContextPath() %>/member/memberCheck"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+ 		 <li><a href="${pageContext.servletContext.contextPath}/member/memberLogin"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+         <li><a href="${pageContext.request.contextPath }/member/memberCheck"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
     	</c:when>
 		<c:otherwise>
-   		 <li><a href="<%=application.getContextPath() %>/member/memberLogout"><span class="glyphicon glyphicon-user"></span> Logout</a></li>
-     	 <li><a href="<%=application.getContextPath() %>/member/memberPage"><span class="glyphicon glyphicon-log-in"></span> MyPage</a></li>
+   		 <li><a href="${pageContext.servletContext.contextPath }/member/memberLogout"><span class="glyphicon glyphicon-user"></span> Logout</a></li>
+     	 <li><a href="${pageContext.request.contextPath }/member/memberPage"><span class="glyphicon glyphicon-log-in"></span> MyPage</a></li>
 		</c:otherwise>
     </c:choose>
     </ul>
